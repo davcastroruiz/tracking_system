@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard {% endblock %}
+{% block nav_bar %}
+    <li class="nav nav-item" style="padding-right: 15px; padding-top: 5px">
+        <a href="#" style="color: #0171c5;"
+           title="Settings">Informes</a>
+    </li>
+
+{% endblock %}
+{% block body %}
+
+    <style>
+        .card {
+            width: 20em;
+            padding: 1em;
+            border: 3px outset #0171c5;
+        }
+
+        a .fa-stack-2x:hover {
+            animation-name: example;
+            animation-duration: 2s;
+        }
+
+        /* Standard syntax */
+        @keyframes example {
+            from {
+                color: tomato;
+            }
+            to {
+                color: #0171c5;
+            }
+        }
+
+        a .fa-stack-2x {
+            color: tomato;
+        }
+
+        a:hover {
+            -webkit-animation-name: example1; /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+            animation-name: example1;
+            animation-duration: 1s;
+
+        }
+
+        /* Standard syntax */
+        @keyframes example1 {
+            from {
+                color: #0171c5;
+            }
+            to {
+                color: tomato;
+            }
+        }
+
+    </style>
+    <br>
+    <div class="row" align="center" style="padding-top: 5%">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-img-top">
+                    <a href="{% url 'tracking:example' %}" style="text-decoration-line: none">
+                    <span class="fa-stack fa-5x">
+                        <i class="fa fa-globe-americas fa-stack-2x"></i>
+                        <i class="fa fa-map-pin fa-stack-1x"></i>
+                    </span>
+                    </a>
+                    <br>
+                    Tracking
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

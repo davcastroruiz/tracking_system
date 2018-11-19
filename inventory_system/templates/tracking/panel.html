@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% block title %} Tracking WW45.2017 {% endblock %}
+{% block nav_bar %}
+    <li class="nav nav-item" style="padding-right: 15px; padding-top: 5px">
+        <label>WW45 2017</label>
+    </li>
+    <li class="nav nav-item" style="padding-right: 15px; padding-top: 5px">
+        <button class="btn btn-default btn-sm">Crear incidencia <i class="fa fa-plus-circle fa-1x"
+                                                                   style="color: black"></i>
+        </button>
+    </li>
+    <li class="nav nav-item" style="padding-right: 15px; padding-top: 5px">
+        <button class="btn btn-default btn-sm" disabled style="border-color: red"><i class="fa fa-th-list"></i>
+        </button>
+        &nbsp;
+        &nbsp;
+        <button class="btn btn-default btn-sm"><i class="fa fa-bars"></i>
+        </button>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <style>
+        .droptarget {
+            border: 1px solid #aaaaaa;
+        }
+
+        .droptarget:hover {
+            cursor: move;
+            border-style: dashed;
+        }
+
+        .col-sm-3 {
+            border-right: 1px solid #aaaaaa;
+            border-bottom: 1px solid #aaaaaa;
+        }
+
+        .col-panel {
+            height: 79vh;
+            padding-top: 5px;
+            padding-left: 0;
+            padding-right: 0;
+            overflow-y: scroll;
+        }
+
+        .col-status {
+            background-color: #0171c5;
+            width: 100%;
+            height: 24px;
+        }
+
+        .col-status p {
+            color: white;
+            text-align: center;
+        }
+
+        .dragging div {
+            opacity: 1;
+        }
+
+        .hover div {
+            background-color: rgba(207, 207, 207, 0.95);
+            opacity: .55;
+            color: black;
+        }
+
+        .verticalLine {
+            border-left: 1.2rem solid #0171c5;
+        }
+
+        .card-footer {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            text-align: right;
+        }
+
+        .date-label {
+            font-weight: inherit;
+            font-size: 14px;
+        }
+
+    </style>
+    <div class="row" style="padding-bottom: 5%;">
+        <div class="col-sm-3 col-status">
+            <div class="col-status"><p>Open</p></div>
+        </div>
+        <div class="col-sm-3 col-status">
+            <div class="col-status"><p>In progress</p></div>
+        </div>
+        <div class="col-sm-3 col-status">
+            <div class="col-status"><p>Done</p></div>
+        </div>
+        <div class="col-sm-3 col-status">
+            <div class="col-status"><p>Blocked</p></div>
+        </div>
+
+        <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
+                 ondragover="dragOver(event)"
+                 id="dragtarget1" class="droptarget">
+                <div class="card verticalLine">
+                    <div class="card-body ">
+                        <h6 class="card-title mb-2 text-muted">Dummy Tittle</h6>
+                        <label class="date-label">
+                            Start Date: <b>WW41</b><br>
+                            End Date: <b>WW42</b>
+                        </label>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="card-link"><i class="fa fa-tasks"></i></a>
+                        <a href="#" class="card-link"><i class="fa fa-tags"></i> 0</a>
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i> 0</a>
+                    </div>
+                </div>
+            </div>
+            <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
+                 ondragover="dragOver(event)"
+                 id="dragtarget33" class="droptarget">
+                <div class="card verticalLine">
+                    <div class="card-body ">
+                        <h6 class="card-title mb-2 text-muted">Dummy Tittle</h6>
+                        <label class="date-label">
+                            Start Date: <b>WW41</b><br>
+                            End Date: <b>WW42</b>
+                        </label>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="card-link"><i class="fa fa-tasks"></i></a>
+                        <a href="#" class="card-link"><i class="fa fa-tags"></i> 0</a>
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i> 0</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
+                 ondragover="dragOver(event)"
+                 id="dragtarget333" class="droptarget">
+                <div class="card verticalLine">
+                    <div class="card-body ">
+                        <h6 class="card-title mb-2 text-muted">Dummy Tittle</h6>
+                        <label class="date-label">
+                            Start Date: <b>WW41</b><br>
+                            End Date: <b>WW42</b>
+                        </label>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="card-link"><i class="fa fa-tasks"></i></a>
+                        <a href="#" class="card-link"><i class="fa fa-tags"></i> 0</a>
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i> 0</a>
+                    </div>
+                </div>
+            </div>
+            <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
+                 ondragover="dragOver(event)"
+                 id="dragtarget339" class="droptarget">
+                <div class="card verticalLine">
+                    <div class="card-body ">
+                        <h6 class="card-title mb-2 text-muted">Dummy Tittle</h6>
+                        <label class="date-label">
+                            Start Date: <b>WW41</b><br>
+                            End Date: <b>WW42</b>
+                        </label>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="card-link"><i class="fa fa-tasks"></i></a>
+                        <a href="#" class="card-link"><i class="fa fa-tags"></i> 0</a>
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i> 0</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+        </div>
+        <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)">
+        </div>
+    </div>
+
+
+    <script>
+        function dragStart(event) {
+            event.dataTransfer.setData("Text", event.target.id);
+            event.target.classList.add("hover");
+        }
+
+        function dragging(event) {
+            event.target.classList.add("dragging");
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function dragOver(event) {
+            cancelDefault(event);
+            event.target.classList.remove("hover", "dragging");
+        }
+
+        function cancelDefault(event) {
+            event.target.classList.remove("hover", "dragging");
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("Text");
+            var str = event.target.className;
+            if (str.includes("col-panel")) {
+                event.target.appendChild(document.getElementById(data));
+                document.getElementById(data).classList.remove("hover", "dragging");
+            }
+        }
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory System: {% block title %} {% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+   <link rel="shortcut icon"
+          href="http://l91e8207rq330k0zf1bpix91bh1.wpengine.netdna-cdn.com/wp-content/uploads/2015/01/2000px-Intel-logo.svg_-1024x678.png">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    {#    Bootstrap 4#}
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    {#    Font awesome 5.4.1#}
+    <link href="{% static 'assets/css/all.css' %}" rel="stylesheet">
+</head>
+<body>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 75%;
+    }
+
+    title {
+        background-color: black;
+    }
+
+    h1 {
+        color: #0171c5;
+        font-family: 'Trocchi', serif;
+        font-size: 45px;
+        font-weight: normal;
+        line-height: 48px;
+        margin: 0;
+        padding-bottom: 20px;
+    }
+
+    h2 {
+        color: #0171c5;
+        font-family: 'Trocchi', serif;
+        font-size: 45px;
+        font-weight: normal;
+        line-height: 48px;
+        margin: 0;
+    }
+
+    .btn {
+        cursor: pointer;
+    }
+
+</style>
+<nav class="navbar navbar-toggleable-md navbar-light fixed-top bg-faded"
+     style="background-color: #ffffff; height: 50px">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav nav-item" style="padding-right: 15px; padding-top: 5px">
+                <a href="{% url 'dashboard:home' %}">
+                    <span class="fa-stack" style="text-align:center;">
+                        <i class="far fa-circle fa-stack-2x" style="color: #0171c5"></i>
+                        <span class="fa-stack" style="color: black"><strong> IS</strong></span>
+                    </span>
+                </a>
+            </li>
+            <li class="nav nav-item" style="padding-left: 100px; padding-top: 5px">
+
+            </li>
+            {% if settings %}
+                <li class="nav nav-item" style="padding-right: 15px; padding-top: 5px">
+                    <a href="#" style="background-color: #0171c5; color: white"
+                       title="Settings"><i
+                            class="fa fa-wrench fa-2x" aria-hidden="true"></i></a>
+                </li>
+            {% endif %}
+            {% block nav_bar %}
+            {% endblock %}
+        </ul>
+
+        {% if request.user.get_username %}
+            <a title="Permission as: {{ request.user.groups.all.0 }}"
+               style="color:black;">Welcome, {{ request.user.get_username }}</a>
+        {% endif %}
+    </div>
+</nav>
+<!-- Page Content -->
+<div style="margin-left:0; padding-left: 20px; padding-right: 20px;">
+    <div style="padding-top: 35px">
+        <hr>
+        {% if messages %}
+            {% block messages %}
+                <div class="container-fluid" align="center">
+                    <div class="{{ messages.tag }}" id="div_msg" align="center"
+                         role="alert"> {{ messages.message }}  </div>
+                </div>
+            {% endblock %}
+        {% endif %}
+
+
+        {% block body %}
+
+        {% endblock %}
+    </div>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-faded">
+    <div class="container" align="center">
+        <span class="text-muted"> © 2018 - Site Built By Intel DPV GDL. Performed with Django 2.1 </span>
+    </div>
+</nav>
+<script type="text/javascript">
+    setTimeout(function () {
+        $('#div_msg').fadeOut('fast');
+    }, 5000);
+
+    var SAFARI = (navigator.userAgent.toString().toLowerCase().indexOf("safari") !== -1) && (navigator.userAgent.toString().toLowerCase().indexOf("chrome") === -1);
+    var FIREFOX = (navigator.userAgent.toString().toLowerCase().indexOf("firefox") !== -1);
+    var CHROME = (navigator.userAgent.toString().toLowerCase().indexOf("chrome") !== -1);
+
+    if (!CHROME && !FIREFOX && !SAFARI) {
+        window.location = "http://dpv-smbwa.intel.com/compatibility";
+    }
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    });
+
+    $('.popover-dismiss').popover({
+        trigger: 'focus'
+    });
+    $(function () {
+        $('[data-toggle="dropdown"]').dropdown()
+    });
+</script>
+</body>
+</html>
