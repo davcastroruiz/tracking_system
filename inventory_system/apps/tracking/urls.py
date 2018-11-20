@@ -4,5 +4,6 @@ from . import views
 app_name = 'tracking'
 
 urlpatterns = [
-    path('', views.panel, name='example')
+    path('', views.panel, name='panel_dashboard'),
+    path('post/incident', views.create_incident, name='create_incident')
 ]

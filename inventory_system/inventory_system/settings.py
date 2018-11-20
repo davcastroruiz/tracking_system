@@ -51,7 +51,6 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'apps.auditory.backend.MyRemoteUserBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -121,7 +120,7 @@ USE_TZ = True
 
 if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, '/static')
-    DATABASE_HOST = "10.219.110.216"
+    DATABASE_HOST = "localhost"
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     DATABASE_HOST = "localhost"

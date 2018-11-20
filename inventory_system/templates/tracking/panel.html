@@ -5,8 +5,9 @@
         <label>WW45 2017</label>
     </li>
     <li class="nav nav-item" style="padding-right: 15px; padding-top: 5px">
-        <button class="btn btn-default btn-sm">Crear incidencia <i class="fa fa-plus-circle fa-1x"
-                                                                   style="color: black"></i>
+        <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#IncidentModalCenter">New incident
+            <i class="fa fa-plus-circle fa-1x"
+               style="color: black"></i>
         </button>
     </li>
     <li class="nav nav-item" style="padding-right: 15px; padding-top: 5px">
@@ -22,7 +23,8 @@
 
     <style>
         .droptarget {
-            border: 1px solid #aaaaaa;
+            border: 2px solid #aaaaaa;
+            border-radius: 15px;
         }
 
         .droptarget:hover {
@@ -36,11 +38,12 @@
         }
 
         .col-panel {
-            height: 79vh;
+            height: 81vh;
             padding-top: 5px;
             padding-left: 0;
             padding-right: 0;
             overflow-y: scroll;
+            background-color: #f6f6f6;
         }
 
         .col-status {
@@ -66,6 +69,7 @@
 
         .verticalLine {
             border-left: 1.2rem solid #0171c5;
+            border-radius: 15px;
         }
 
         .card-footer {
@@ -79,101 +83,186 @@
             font-size: 14px;
         }
 
+        .panel_detail {
+            width: 80% !important;
+        }
+
+        #main {
+            height: 79vh;
+            overflow: hidden;
+        }
+
+        #l {
+            text-align: center;
+            height: 85vh;
+            width: 19%;
+            overflow-y: scroll;
+            position: fixed;
+            top: 55px;
+            background-color: #f9f9f9;
+            padding: 5px;
+            right: 10px;
+        }
+
+        #r {
+            position: fixed;
+            top: 55px;
+            width: 99%;
+            height: 95%;
+            background-color: #f5f5f5;
+            border-right: 1px solid #353535;
+        }
+
+    .description-detail{
+        text-align: left;
+    }
+
+
     </style>
-    <div class="row" style="padding-bottom: 5%;">
-        <div class="col-sm-3 col-status">
-            <div class="col-status"><p>Open</p></div>
-        </div>
-        <div class="col-sm-3 col-status">
-            <div class="col-status"><p>In progress</p></div>
-        </div>
-        <div class="col-sm-3 col-status">
-            <div class="col-status"><p>Done</p></div>
-        </div>
-        <div class="col-sm-3 col-status">
-            <div class="col-status"><p>Blocked</p></div>
-        </div>
+    <div id="main">
+        <div id="l">
+            <div class="card">
+                <div class="card-header" style="padding: 0 !important;">
+                    <label id="detail-name"></label>
+                    <button type="button" class="close" onclick="closePanelDetail()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body" id="detail-body">
 
-        <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
-                 ondragover="dragOver(event)"
-                 id="dragtarget1" class="droptarget">
-                <div class="card verticalLine">
-                    <div class="card-body ">
-                        <h6 class="card-title mb-2 text-muted">Dummy Tittle</h6>
-                        <label class="date-label">
-                            Start Date: <b>WW41</b><br>
-                            End Date: <b>WW42</b>
-                        </label>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-tasks"></i></a>
-                        <a href="#" class="card-link"><i class="fa fa-tags"></i> 0</a>
-                        <a href="#" class="card-link"><i class="fa fa-comment"></i> 0</a>
-                    </div>
-                </div>
-            </div>
-            <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
-                 ondragover="dragOver(event)"
-                 id="dragtarget33" class="droptarget">
-                <div class="card verticalLine">
-                    <div class="card-body ">
-                        <h6 class="card-title mb-2 text-muted">Dummy Tittle</h6>
-                        <label class="date-label">
-                            Start Date: <b>WW41</b><br>
-                            End Date: <b>WW42</b>
-                        </label>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-tasks"></i></a>
-                        <a href="#" class="card-link"><i class="fa fa-tags"></i> 0</a>
-                        <a href="#" class="card-link"><i class="fa fa-comment"></i> 0</a>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
-                 ondragover="dragOver(event)"
-                 id="dragtarget333" class="droptarget">
-                <div class="card verticalLine">
-                    <div class="card-body ">
-                        <h6 class="card-title mb-2 text-muted">Dummy Tittle</h6>
-                        <label class="date-label">
-                            Start Date: <b>WW41</b><br>
-                            End Date: <b>WW42</b>
-                        </label>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-tasks"></i></a>
-                        <a href="#" class="card-link"><i class="fa fa-tags"></i> 0</a>
-                        <a href="#" class="card-link"><i class="fa fa-comment"></i> 0</a>
-                    </div>
-                </div>
+        <div class="row" style="padding-bottom: 5%;" id="r">
+            <div class="col-sm-3 col-status">
+                <div class="col-status"><p>Open</p></div>
             </div>
-            <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
-                 ondragover="dragOver(event)"
-                 id="dragtarget339" class="droptarget">
-                <div class="card verticalLine">
-                    <div class="card-body ">
-                        <h6 class="card-title mb-2 text-muted">Dummy Tittle</h6>
-                        <label class="date-label">
-                            Start Date: <b>WW41</b><br>
-                            End Date: <b>WW42</b>
-                        </label>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-tasks"></i></a>
-                        <a href="#" class="card-link"><i class="fa fa-tags"></i> 0</a>
-                        <a href="#" class="card-link"><i class="fa fa-comment"></i> 0</a>
-                    </div>
-                </div>
+            <div class="col-sm-3 col-status">
+                <div class="col-status"><p>In_Progress</p></div>
             </div>
-        </div>
-        <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="col-sm-3 col-status">
+                <div class="col-status"><p>Done</p></div>
+            </div>
+            <div class="col-sm-3 col-status">
+                <div class="col-status"><p>Blocked</p></div>
+            </div>
 
-        </div>
-        <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)" id="Open">
+                {% for incident in incidents.Open %}
+                    <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
+                         ondragover="dragOver(event)"
+                         id="{{ incident.custom_id }}" class="droptarget">
+                        <div class="card verticalLine">
+                            <div class="card-header" style="padding: 0 !important;">
+                                inc_{{ incident.custom_id }}
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title mb-2 text-muted">{{ incident.title }}
+                                    by {{ incident.created_by }}</h6>
+                                <label class="date-label">
+                                    Start Date: <b>WW{{ incident.start_date.ww }}</b><br>
+                                    Due Date: <b>WW{{ incident.due_date.ww }}</b>
+                                </label>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="card-link" onclick="panelDetail(this, {{ incident.custom_id }})"><i
+                                        class="fa fa-tasks"></i></a>
+                                <a href="#" class="card-link"><i class="fa fa-tags"></i> {{ incident.tags|length }}</a>
+                                <a href="#" class="card-link"><i
+                                        class="fa fa-comment"></i> {{ incident.comments|length }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)" id="In_Progress">
+                {% for incident in incidents.In_Progress %}
+                    <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
+                         ondragover="dragOver(event)"
+                         id="{{ incident.custom_id }}" class="droptarget">
+                        <div class="card verticalLine">
+                            <div class="card-header" style="padding: 0 !important;">
+                                inc_{{ incident.custom_id }}
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title mb-2 text-muted">{{ incident.title }}
+                                    by {{ incident.created_by }}</h6>
+                                <label class="date-label">
+                                    Start Date: <b>WW{{ incident.start_date.ww }}</b><br>
+                                    Due Date: <b>WW{{ incident.due_date.ww }}</b>
+                                </label>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="card-link" onclick="panelDetail(this, {{ incident.custom_id }})"><i
+                                        class="fa fa-tasks"></i></a>
+                                <a href="#" class="card-link"><i class="fa fa-tags"></i> {{ incident.tags|length }}</a>
+                                <a href="#" class="card-link"><i
+                                        class="fa fa-comment"></i> {{ incident.comments|length }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)" id="Done">
+                {% for incident in incidents.Done %}
+                    <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
+                         ondragover="dragOver(event)"
+                         id="{{ incident.custom_id }}" class="droptarget">
+                        <div class="card verticalLine">
+                            <div class="card-header" style="padding: 0 !important;">
+                                inc_{{ incident.custom_id }}
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title mb-2 text-muted">{{ incident.title }}
+                                    by {{ incident.created_by }}</h6>
+                                <label class="date-label">
+                                    Start Date: <b>WW{{ incident.start_date.ww }}</b><br>
+                                    Due Date: <b>WW{{ incident.due_date.ww }}</b>
+                                </label>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="card-link" onclick="panelDetail(this, {{ incident.custom_id }})"><i
+                                        class="fa fa-tasks"></i></a>
+                                <a href="#" class="card-link"><i class="fa fa-tags"></i> {{ incident.tags|length }}</a>
+                                <a href="#" class="card-link"><i
+                                        class="fa fa-comment"></i> {{ incident.comments|length }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-3 col-panel" ondrop="drop(event)" ondragover="allowDrop(event)" id="Blocked">
+                {% for incident in incidents.Blocked %}
+                    <div ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true"
+                         ondragover="dragOver(event)"
+                         id="{{ incident.custom_id }}" class="droptarget">
+                        <div class="card verticalLine">
+                            <div class="card-header" style="padding: 0 !important;">
+                                inc_{{ incident.custom_id }}
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title mb-2 text-muted">{{ incident.title }}
+                                    by {{ incident.created_by }}</h6>
+                                <label class="date-label">
+                                    Start Date: <b>WW{{ incident.start_date.ww }}</b><br>
+                                    Due Date: <b>WW{{ incident.due_date.ww }}</b>
+                                </label>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="card-link" onclick="panelDetail(this, {{ incident.custom_id }})"><i
+                                        class="fa fa-tasks"></i></a>
+                                <a href="#" class="card-link"><i class="fa fa-tags"></i> {{ incident.tags|length }}</a>
+                                <a href="#" class="card-link"><i
+                                        class="fa fa-comment"></i> {{ incident.comments|length }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
@@ -209,11 +298,54 @@
             var data = event.dataTransfer.getData("Text");
             var str = event.target.className;
             if (str.includes("col-panel")) {
+                console.log(event.target.id);
                 event.target.appendChild(document.getElementById(data));
                 document.getElementById(data).classList.remove("hover", "dragging");
             }
         }
 
+        var incidents = "{{ incidents|safe }}";
+        incidents = incidents.replace(/'/g, '"');
+        var json = JSON.parse(incidents || '{}');
+
+        function send(from, custom_id) {
+            var data = json[from];
+            for (var event in data) {
+                var dataCopy = data[event];
+                if (dataCopy['custom_id'] === custom_id) {
+                    return dataCopy;
+                }
+            }
+
+            return false;
+        }
+
+        function panelDetail(parent, custom_id) {
+            document.getElementById('r').classList.add('panel_detail');
+            var panelName = parent.parentElement.parentElement.parentElement.parentElement.id;
+            var panelInfoDetail = send(panelName, custom_id);
+            if (panelInfoDetail === false) {
+                alert('Fatal error: ID does not match with status!!!');
+            }
+            else {
+                $('#detail-name').text("inc_" + panelInfoDetail.custom_id);
+                $('#detail-body').html('<h6 class="card-title mb-2 text-muted">' + panelInfoDetail.title + '\n' +
+                    '                        by ' + panelInfoDetail.created_by + '</h6>\n' +
+                    '                    <label class="date-label">\n' +
+                    '                        Start Date: <b>' + panelInfoDetail.start_date.str_date+'</b><br>\n' +
+                    '                        Due Date: <b>' + panelInfoDetail.due_date.str_date+'</b>\n' +
+                    '                    </label><hr><label>Description</label>' +
+                    '<p class="description-detail">'+panelInfoDetail.description+'</p>');
+            }
+        }
+
+        function closePanelDetail() {
+            if (document.getElementById('r').classList.contains('panel_detail')) {
+                document.getElementById('r').classList.remove('panel_detail');
+            }
+        }
+
 
     </script>
+    {% include 'tracking/new_incident.html' %}
 {% endblock %}

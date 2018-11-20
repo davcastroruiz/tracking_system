@@ -1,0 +1,85 @@
+<!-- Modal -->
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'js/tags/css/tags-input.css' %}">
+<script src="{% static 'js/tags/tags-input.js' %}"></script>
+<div class="modal fade" id="IncidentModalCenter" tabindex="-1" role="dialog" aria-labelledby="IncidentModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="IncidentModalLongTitle">New Incident</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form class="form-group" action="{% url 'tracking:create_incident' %}" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Title</label>
+                            <input type="text" name="title" id="title" maxlength="50" class="form-control"
+                                   placeholder="Set a title" required>
+                            <hr>
+                            <label>Description (200 characters)</label>
+                            <textarea class="form-control" placeholder="Set a description" maxlength="200"
+                                      required name="description" id="description"></textarea>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Status</label>
+                            <select class="form-control" required name="status" id="status">
+                                <option value="">Choose one...</option>
+                                <option value="Open">Open</option>
+                                <option value="In_Progress">In_Progress</option>
+                                <option value="Done">Done</option>
+                                <option value="Blocked">Blocked</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Start Date</label>
+                            <input class="form-control" type="date" id="start-date" name="start-date"
+                                   onchange="update_date()">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Due Date</label>
+                            <input class="form-control" type="date" id="due-date" name="due-date">
+                        </div>
+                        <div class="col-sm-12">
+                            <label for='tags'>Tags</label><br>
+                            <input class='form-control' id="tags" type='tags' name="tags">
+
+                            <script type="text/javascript">
+                                tagsInput(document.querySelector('input[type="tags"]'));
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        $('#start-date').val(today);
+        document.getElementById("due-date").min = $('#start-date').val();
+        document.getElementById("due-date").value = $('#start-date').val();
+    });
+
+    function update_date() {
+        document.getElementById("due-date").min = $('#start-date').val();
+        document.getElementById("due-date").value = $('#start-date').val();
+    }
+</script>
