@@ -10,8 +10,8 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('apps.dashboard.urls')),
-    path('tracking/', include('apps.tracking.urls')),
+    path('dashboard/', include('apps.dashboard.urls')),
+    path('', include('apps.tracking.urls')),
     re_path(r'^static/(?P<some_path>.*)$', serve,
             {'document_root': settings.STATIC_ROOT, 'show_indexes': settings.DEBUG}),
     re_path(r'^media/(?P<some_path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

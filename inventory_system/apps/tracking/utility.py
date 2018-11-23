@@ -1,5 +1,4 @@
 import datetime
-
 from pymongo import MongoClient
 from general.utility import get_sequence_value as custom_id, reset_sequence_value
 import pprint
@@ -83,7 +82,7 @@ def get_incidents():
                         'year': 1
                     },
                     'activity': {
-                        'action': 1
+                        'action': 1,
                     }
                 }
             }
@@ -93,3 +92,45 @@ def get_incidents():
     for item in collection:
         group.update({item['_id']: item['items']})
     return group
+
+
+def set_status_incident(_id, status, who):
+    client = MongoClient('localhost', 27017)
+    db = client['Testing']
+    db.authenticate('testing_admin', 'pwd4db')
+    activity = {"who": who,
+                "action": "status changed",
+                "timestamp": datetime.datetime.utcnow()}
+    db.incident.find_one_and_update({'custom_id': _id},
+                                    {"$set": {'status': status, 'last_modified': datetime.datetime.utcnow()},
+                                     "$push": {'activity': activity}},
+                                    upsert=True,
+                                    )
+
+
+def set_comment_incident(_id, comment, who):
+    client = MongoClient('localhost', 27017)
+    db = client['Testing']
+    db.authenticate('testing_admin', 'pwd4db')
+    comment_obj = {"who": who,
+                   "comment": comment,
+                   "timestamp": datetime.datetime.utcnow()}
+    db.incident.find_one_and_update({'custom_id': _id},
+                                    {"$push": {'comments': comment_obj}},
+                                    upsert=True,
+                                    )
+
+
+def get_comments(_id):
+    client = MongoClient('localhost', 27017)
+    db = client['Testing']
+    db.authenticate('testing_admin', 'pwd4db')
+    obj = db.incident.find_one({'custom_id': _id})
+    comments = []
+    try:
+        for i in list(obj['comments']):
+            i['timestamp'] = str(i['timestamp'].strftime("%Y-%m-%d %H:%M"))
+            comments.append(i)
+    except Exception as e:
+        print(e)
+    return comments

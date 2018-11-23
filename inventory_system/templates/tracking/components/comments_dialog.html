@@ -1,0 +1,147 @@
+<!-- Modal -->
+{% load staticfiles %}
+<style>
+    .tip {
+        width: 0;
+        height: 0;
+        position: absolute;
+        background: transparent;
+        border: 10px solid #ccc;
+    }
+
+    .tip-left {
+        top: 10px;
+        left: -25px;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+    }
+
+    .dialogbox .message-body {
+        position: relative;
+        max-width: 100%;
+        height: auto;
+        margin: 20px 10px;
+        padding: 5px;
+        background-color: #DADADA;
+        border-radius: 3px;
+        border: 5px solid #ccc;
+    }
+
+    .message-body .message {
+        min-height: 30px;
+        border-radius: 3px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #797979;
+    }
+</style>
+<div class="modal fade" id="commentModalCenter" tabindex="-1" role="dialog" aria-labelledby="commentModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalCenterTitle">Comments inc_xx</h5>
+                <input type="hidden" id="currentCustomID" value="">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="clearCommentForm()">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Main Container -->
+                <textarea class="form-control" placeholder="Comments about this incident?" id="new_comment"
+                          name="new_comment"></textarea>
+                <button class="btn btn-primary btn-sm" onclick="validateTextArea()">Save comment</button>
+                <hr>
+                <div class="container">
+                    <div class="dialogbox" id="comment-dialog-box">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function set_comments(comment) {
+        var custom_id = document.getElementById('currentCustomID').value;
+        $.ajax({
+            type: "POST",
+            url: '{% url 'tracking:new_comment'%}',
+            data: {
+                'new_comment': comment,
+                'custom_id': custom_id
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error: ' + data.exception);
+                }
+            }
+        });
+
+    }
+
+    function validateTextArea() {
+        var textArea = document.getElementById('new_comment');
+        if (textArea.value !== "") {
+            set_comments(textArea.value);
+        } else {
+            alert('You need to write a comment before to save it!!!');
+        }
+
+    }
+
+    function clearCommentForm() {
+        document.getElementById('commentModalCenterTitle').text = 'Comments inc_xx';
+        document.getElementById('currentCustomID').value = '';
+        document.getElementById('new_comment').value = '';
+    }
+
+    function get_comments(custom_id) {
+        $('#commentModalCenterTitle').text('Comments inc_' + custom_id);
+        document.getElementById('currentCustomID').value = custom_id;
+
+        $.ajax({
+            type: "GET",
+            url: '{% url 'tracking:get_comments_incident'%}',
+            data: {
+                'custom_id': custom_id
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    var div_comments = "";
+                    var comments = data.comments;
+                    for (var i = 0; i < comments.length; i++) {
+                        div_comments += generate_dialog(comments[i].who, comments[i].comment, comments[i].timestamp);
+                    }
+                    document.getElementById('comment-dialog-box').innerHTML = div_comments;
+
+                } else {
+                    alert('Error: ' + data.exception);
+                }
+
+
+            }
+        });
+    }
+
+    function generate_dialog(author, comment, timestamp) {
+        return '<div class="message-body">\n' +
+            '                            <span class="tip tip-left"></span>\n' +
+            '                            <div class="message">\n' +
+            '                                ' + author + ': <br>\n' +
+            '                                <span>' + comment + '\n' +
+            '                                </span>\n' +
+            '                                <div align="right"><span style="text-align: right">' + timestamp + '</span></div>\n' +
+            '                            </div>\n' +
+            '                        </div>'
+    }
+
+</script>
